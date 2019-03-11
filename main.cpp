@@ -4,8 +4,38 @@
 #include <stdlib.h> 
 #include <vector>
 #include <set>
+#include <queue>
 
 using namespace std;
+
+vector<int> BreadthFirstSearch(vector<vector<int> > graph, int vertex) {
+  vector<int> visited(graph.size(), -1);
+  // for (int i = 0; i < visited.size(); i++) {
+  //   printf("Distance to %i: %i\n", i, visited[i]);
+  // }
+  queue<int> toVisit;
+  int current = vertex;
+
+  visited[vertex] = 0; //printf("%i", visited[vertex]);
+
+  toVisit.push(vertex);
+
+  while(!toVisit.empty()) {
+    current = toVisit.front(); printf("%i", current);
+    toVisit.pop();
+    for (int i = 0; i < graph.size(); i++) {
+      int isAdjacent = graph[current][i];
+      if (isAdjacent == 1) {
+        if (visited[i] < 0) {
+          visited[i] = visited[current] + 1;
+          toVisit.push(i);
+        }
+      }
+    }
+  }
+
+  return visited;
+}
 
 int main(int argc, char ** argv) {
   int numVerts = atoi(argv[1]);
@@ -29,6 +59,12 @@ int main(int argc, char ** argv) {
       printf("%i ", matrix.at(i).at(j));
     }
     printf("\n");
+  }
+
+  vector<int> bfsTest = BreadthFirstSearch(matrix, 0);
+  printf("Breadth First Search From 0:\n");
+  for (int i = 0; i < bfsTest.size(); i++) {
+    printf("Distance to %i: %i\n", i, bfsTest[i]);
   }
 
   return 0;
