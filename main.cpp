@@ -1,3 +1,6 @@
+// Group 5
+// Brandon Wolff
+// George Colson
 #include <iostream>
 #include <string>
 #include <stdio.h>
