@@ -18,15 +18,15 @@ int main(int argc, char ** argv) {
     int second = atoi(argv[k * 2 + 3]);
     printf("Edge created: %i, %i\nNumber of edges: %i\n", first, second, k+1);
     // cout << "Edge created: [" << argv[k*2 + 1] >> ", " << argv[(k+1) * 2] << "]" << endl;
-    matrix.at(first).at(second) = 1;
-    matrix.at(second).at(first) = 1;
+    matrix[first][second] = 1;
+    matrix[second][first] = 1;
   }
 
   cout << "Adjacency matrix:" << endl;
   for(int i = 0; i < numVerts; i++) {
     for(int j = 0; j < numVerts; j++)
     {
-      printf("%i ", matrix.at(i).at(j));
+      printf("%i ", matrix[i][j]);
     }
     printf("\n");
   }
@@ -35,7 +35,7 @@ int main(int argc, char ** argv) {
 }
 
 vector<int> BFS(vector<vector<int> > matrix, int s) {
-  //
+  
 }
 
 int Diameter(vector<vector<int> > matrix) {
@@ -46,9 +46,9 @@ int Diameter(vector<vector<int> > matrix) {
   int diameter = 0;
   for(int i = 0; i < matrix.size(); i++) {
     vector<int> visited = BFS(matrix, i);
-    int disconnected = count(visited.begin(), visited.end(), 0);
     int max = *max_element(visited.begin(), visited.end());
-    if (disconnected > 1) {
+    int min = *min_element(visited.begin(), visited.end());
+    if (min < 0) {
       diameter = -1; 
       break;
     } else if (max > diameter) {
